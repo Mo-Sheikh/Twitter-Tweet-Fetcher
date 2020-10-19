@@ -1,29 +1,14 @@
 const OAuth = require("oauth");
 const fs = require("fs");
 const moment = require("moment");
-var args = process.argv;
-handler = async (event) => {
-  console.log("event is ", event);
+require("dotenv").config();
 
+// var args = process.argv;
+const handler = async (handle, days, retweets) => {
   var total = 0;
   var previous = "";
   let obj = new Set();
-  async function initialise() {
-    console.log("INITIALISING");
-    if (!process.env.AWS_LAMBDA_FUNCTION_VERSION) {
-      let result = (resolve, reject) => {
-        fs.readFile("../../Documents/config.json", "utf8", (err, data) => {
-          if (err) {
-            console.log(err);
-            reject(err);
-          }
-          process.env = JSON.parse(data);
-          resolve(JSON.parse(data));
-        });
-      };
-      return new Promise(result);
-    }
-  }
+  var tweets;
 
   async function makeRequest(user, id = null) {
     let ids = [];
@@ -66,10 +51,10 @@ handler = async (event) => {
             try {
               let tweets = JSON.parse(data).map((i) => {
                 ids.push(i.id);
-                if (i.retweet_count > args[3]) {
+                if (i.retweet_count > retweets) {
                   let isoDate = new Date(i.created_at);
                   let now = moment().toISOString();
-                  if (moment(now).diff(moment(isoDate), "days") > args[4]) {
+                  if (moment(now).diff(moment(isoDate), "days") > days) {
                     obj.add(
                       `${i.full_text}|-|${
                         i.retweet_count
@@ -96,7 +81,7 @@ handler = async (event) => {
               reject(e);
             }
           } else {
-            let tweets = Array.from(obj).map((i) => {
+            var tweets = Array.from(obj).map((i) => {
               return {
                 tweet: i.split("|-|")[0],
                 retweets: i.split("|-|")[1],
@@ -107,23 +92,12 @@ handler = async (event) => {
             });
             console.log(`${user} has`, tweets.length);
             try {
-              let rt = FileReader().then((i) => {
-                if (i) {
-                  tweets.push(...i);
-                }
-                fs.writeFile("Tweets.json", JSON.stringify(tweets), function (
-                  err
-                ) {
-                  if (err) return console.log(err);
-                  console.log("wrote file");
-                });
-              });
             } catch (error) {
               console.log("error rudegyal");
               console.log(error);
             }
             total += 4000;
-            return;
+            return tweets;
           }
         }
       );
@@ -156,29 +130,10 @@ handler = async (event) => {
     console.log(`${user} has`, obj.length);
   }
 
-  async function FileReader() {
-    return new Promise((resolve, reject) => {
-      fs.readFile("./Tweets.json", "utf8", (err, data) => {
-        if (err) {
-          console.log(err);
-          console.log("writing error");
-          reject(err);
-        }
-        if (data && data.length > 10) {
-          console.log("we have data");
-          resolve(JSON.parse(data));
-        } else {
-          console.log("we dont have data");
-          resolve(false);
-        }
-      });
-    });
-  }
+  await fetchTweet(handle);
 
-  await initialise();
-  await fetchTweet(args[2]);
-
-  return 1;
+  return tweets;
 };
 
-handler({ type: "software" });
+// handler({ type: "software" });
+module.exports.handler = handler;
