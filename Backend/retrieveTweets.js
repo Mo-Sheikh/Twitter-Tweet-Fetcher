@@ -12,67 +12,56 @@ const oauth = new OAuth.OAuth(
   "HMAC-SHA1"
 );
 let max;
-async function fetchTweets(user, max_id, retweetCount, days, limit = null) {
-  try {
-    let tweets = [];
-    let status;
-    let initialCall = `&count=5000`;
-    if (max_id == "") {
-      status = "";
-    } else {
-      status = `&max_id=${max_id}`;
-    }
-
+function fetchTweets(user, max_id, retweetCount, days) {
+  let tweets = [];
+  let status;
+  if (max_id == "") {
+    status = "";
+  } else {
+    status = `&max_id=${max_id}`;
+  }
+  return new Promise((resolve) => {
     oauth.get(
       `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${user}&count=2000&include_rts=false&exclude_replies=1&tweet_mode=extended${status}`,
       process.env.AccessToken,
       process.env.TokenSecret,
-      async (e, response) => {
+      (e, response) => {
         if (e) {
           console.log("error", e);
         }
         if (response) {
           let data = JSON.parse(response);
-          callback(data, user, retweetCount, days, limit);
+          resolve(data);
         }
       }
     );
+  });
+}
 
-    return tweets;
+async function callback(data, user, retweetCount, days) {
+  try {
+    let max_id = getMaxId(data);
+    collectTweets(data, user, retweetCount, days)
+      .then((i) => {
+        tweets.concat(i);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    if (max_id != max) {
+      console.log(max_id);
+      await fetchTweets(user, max_id, retweetCount, days);
+      max = max_id;
+    } else {
+      return "complete";
+    }
   } catch (error) {
     console.log(error);
   }
 }
 
-async function callback(data, user, retweetCount, days, limit) {
-  let result = (resolve, reject) => {
-    try {
-      if (limit && tweets.length > limit) {
-        console.log("Complete");
-        console.log(tweets);
-        resolve(tweets);
-        return new Promise(result);
-      }
-      tweets = collectTweets(data, user, retweetCount, days);
-
-      let max_id = getMaxId(data);
-      if (max_id != max) {
-        fetchTweets(user, max_id);
-        max = max_id;
-      } else {
-        console.log("Complete");
-        console.log(tweets);
-        resolve(tweets);
-        return new Promise(result);
-      }
-    } catch (error) {
-      console.log(error);
-      reject(error);
-    }
-  };
-}
-
-function getMaxId(data) {
+async function getMaxId(data) {
   try {
     let tmp;
     data.map((element, index) => {
@@ -91,30 +80,35 @@ function getMaxId(data) {
   }
 }
 
-async function collectTweets(data, user, retweetCount, days) {
+function collectTweets(data, user, retweetCount, days) {
   let now = moment().toISOString();
-  try {
-    return data.filter((i) => {
-      let isoDate = new Date(i.created_at);
-      if (
-        i.retweet_count > retweetCount &&
-        moment(now).diff(moment(isoDate), "days") > days
-      ) {
-        return {
-          retweetCount: i.retweet_count,
-          user: user,
-          tweet: i.full_text,
-        };
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
+
+  return data.filter((i) => {
+    console.log(i.full_text);
+    let isoDate = new Date(i.created_at);
+    if (
+      i.retweet_count > retweetCount &&
+      moment(now).diff(moment(isoDate), "days") > days
+    ) {
+      return {
+        retweetCount: i.retweet_count,
+        user: user,
+        tweet: i.full_text,
+      };
+    }
+  });
 }
 
-async function run() {
-  let b = await fetchTweets("codewithmo", "", 1, 1, 100);
-  console.log(b);
+function main() {
+  fetchTweets("codewithmo", "", 1, 1, 100).then((data) => {
+    tweets = data;
+    let m = getMaxId(data);
+    collectTweets(data);
+    if (collectTweets != "complete") {
+      console.log("here");
+      fetchTweets("codewithmo", m, 30, 30);
+    }
+  });
 }
 
-run();
+main();

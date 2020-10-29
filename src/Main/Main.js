@@ -36,6 +36,7 @@ export default function Main() {
       )
       .then((i) => {
         console.log(i);
+        alert("got");
       });
   };
 
