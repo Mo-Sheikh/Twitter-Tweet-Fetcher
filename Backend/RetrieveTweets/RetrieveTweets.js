@@ -69,7 +69,8 @@ function collectTweets(data, user, retweetCount, days) {
           retweetCount: i.retweet_count,
           user: user,
           tweet: i.full_text,
-          likelihood: "10%",
+          likelihood: (i.retweet_count / i.user.followers_count) * 100,
+          date: isoDate,
         });
       }
     });
