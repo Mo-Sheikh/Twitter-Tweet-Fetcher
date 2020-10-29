@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Main() {
   const [name, setName] = useState();
   const [days, setDays] = useState();
+  const [data, setData] = useState();
   const [retweetCount, setRetweetCount] = useState();
   const classes = useStyles();
   const getHandle = (event) => {
@@ -32,11 +33,16 @@ export default function Main() {
     event.preventDefault();
     axios
       .get(
-        `http://localhost:5000/tweets?user=${name}&days=${days}&retweetCount=${retweetCount}`
+        `http://localhost:5000/fetchTweets?user=${name}&days=${days}&retweetCount=${retweetCount}`
       )
-      .then((i) => {
-        console.log(i);
-        alert("got");
+      .then((data) => {
+        data.data.forEach((i) => {
+          console.log(i);
+        });
+        setData(data.data[0].tweet);
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -78,6 +84,7 @@ export default function Main() {
           </Button>
         </div>
       </form>
+      <h1> Tweet: {data}</h1>
     </div>
   );
 }
