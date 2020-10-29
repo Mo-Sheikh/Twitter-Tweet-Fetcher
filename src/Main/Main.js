@@ -6,12 +6,14 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 export default function Main() {
   const [name, setName] = useState();
   const [days, setDays] = useState();
   const [data, setData] = useState();
+  const [load, setLoad] = useState();
   const [retweetCount, setRetweetCount] = useState();
 
   const getHandle = (event) => {
@@ -26,6 +28,7 @@ export default function Main() {
 
   const submit = (event) => {
     event.preventDefault();
+
     axios
       .get(
         `http://localhost:5000/fetchTweets?user=${name}&days=${days}&retweetCount=${retweetCount}`
@@ -36,7 +39,15 @@ export default function Main() {
         });
         let info = data.data[0];
         setData(
-          `Tweet: ${info.tweet}\n Retweets: ${info.retweetCount} \n Success Chance: ${info.likelihood}\n Data: ${info.date}`
+          <p>
+            `Tweet: ${info.tweet} <br />
+            <br />
+            Retweets: ${info.retweetCount} <br />
+            <br />
+            Success Chance: ${info.likelihood}
+            <br /> <br />
+            Data: ${info.date}`
+          </p>
         );
       })
       .catch((e) => {
@@ -85,6 +96,7 @@ export default function Main() {
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
+                {load}
               </div>
             </form>
           </Col>
@@ -92,7 +104,7 @@ export default function Main() {
       </Container>
       <Container>
         <Row>
-          <Col style={{ textAlign: "center" }}>{data}</Col>
+          <Col md={{ span: 8, offset: 2 }}>{data}</Col>
         </Row>
       </Container>
     </div>
