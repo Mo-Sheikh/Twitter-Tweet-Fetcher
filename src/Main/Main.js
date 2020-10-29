@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
+import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import { makeStyles } from "@material-ui/core/styles";
 
 export default function Main() {
   const [name, setName] = useState();
   const [days, setDays] = useState();
   const [data, setData] = useState();
   const [retweetCount, setRetweetCount] = useState();
-  const classes = useStyles();
+
   const getHandle = (event) => {
     setName(event.target.value);
   };
@@ -39,7 +34,10 @@ export default function Main() {
         data.data.forEach((i) => {
           console.log(i);
         });
-        setData(data.data[0].tweet);
+        let info = data.data[0];
+        setData(
+          `Tweet: ${info.tweet}\n Retweets: ${info.retweetCount} \n Success Chance: ${info.likelihood}\n Data: ${info.date}`
+        );
       })
       .catch((e) => {
         console.log(e);
@@ -48,43 +46,55 @@ export default function Main() {
 
   return (
     <div>
-      <form
-        className={classes.root}
-        noValidate
-        autoComplete="off"
-        onSubmit={submit}
-      >
-        <div>
-          <TextField
-            required
-            id="standard-required"
-            label="Twitter Handle"
-            onChange={getHandle}
-          />
-          <TextField
-            id="standard-number"
-            label="Days"
-            type="number"
-            onChange={getDays}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField
-            id="standard-number"
-            label="Retweet Count"
-            type="number"
-            onChange={getRetweets}
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
-        </div>
-      </form>
-      <h1> Tweet: {data}</h1>
+      <Container>
+        <Row>
+          <Col style={{ textAlign: "center" }}>
+            <h1> Tweet Fetcher</h1>
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col style={{ textAlign: "center" }}>
+            <form noValidate autoComplete="off" onSubmit={submit}>
+              <div>
+                <TextField
+                  required
+                  id="standard-required"
+                  label="Twitter Handle"
+                  onChange={getHandle}
+                />
+                <TextField
+                  id="standard-number"
+                  label="Days"
+                  type="number"
+                  onChange={getDays}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <TextField
+                  id="standard-number"
+                  label="Retweet Count"
+                  type="number"
+                  onChange={getRetweets}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </div>
+            </form>
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col style={{ textAlign: "center" }}>{data}</Col>
+        </Row>
+      </Container>
     </div>
   );
 }
