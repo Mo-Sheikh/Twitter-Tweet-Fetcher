@@ -15,7 +15,7 @@ export default function Main() {
   const [next, setNext] = useState();
   const [display, setDisplay] = useState(null);
   const [retweetCount, setRetweetCount] = useState();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   const getHandle = (event) => {
     setName(event.target.value);
@@ -29,7 +29,12 @@ export default function Main() {
 
   const randomise = () => {
     console.log(data);
-    let info = data[Math.floor(Math.random() * (data.length - 1)) + 0];
+    // let random = Math.ceil(Math.random() * (data.length - 1) + 0);
+    data.sort((a, b) => {
+      return b.likelihood - a.likelihood;
+    });
+    let info = data.splice(data.length - 1, data.length - 1)[0];
+
     if (info) {
       return (
         <p>
