@@ -3,6 +3,7 @@ const moment = require("moment");
 require("dotenv").config();
 let tweets = [];
 let max;
+
 const oauth = new OAuth.OAuth(
   "https://api.twitter.com/oauth/request_token",
   "https://api.twitter.com/oauth/access_token",
@@ -89,7 +90,7 @@ function handleResponse(data, user, retweetCount, days, cb) {
     let max_id = getMaxId(data);
 
     if (!max_id || max_id === max) {
-      cb();
+      cb(tweets);
       return;
     } else {
       max = max_id;
@@ -101,6 +102,4 @@ function handleResponse(data, user, retweetCount, days, cb) {
   }
 }
 
-fetchTweets("codewithmo", 1, 1, null, (u) => {
-  console.log("udub", tweets);
-});
+module.exports.retrieveTweets = fetchTweets;
