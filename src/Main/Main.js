@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 
 import axios from "axios";
@@ -12,9 +12,10 @@ import { makeStyles } from "@material-ui/core/styles";
 export default function Main() {
   const [name, setName] = useState();
   const [days, setDays] = useState();
-  const [data, setData] = useState();
-  const [load, setLoad] = useState();
+  const [next, setNext] = useState();
+  const [display, setDisplay] = useState(null);
   const [retweetCount, setRetweetCount] = useState();
+  const [data, setData] = useState();
 
   const getHandle = (event) => {
     setName(event.target.value);
@@ -26,29 +27,40 @@ export default function Main() {
     setRetweetCount(event.target.value);
   };
 
+  const randomise = () => {
+    console.log(data);
+    let info = data[Math.floor(Math.random() * (data.length - 1)) + 0];
+    if (info) {
+      return (
+        <p>
+          Tweet: {info.tweet} <br />
+          <br />
+          Retweets: {info.retweetCount} <br />
+          <br /> Success Chance: {Math.ceil(info.likelihood)}
+          <br /> <br />
+          Date: {info.date}
+          <br /> <br />
+          User: @{info.user}
+        </p>
+      );
+    }
+  };
+  useEffect(() => {
+    if (data) {
+      setDisplay(<div>{randomise()}</div>);
+    }
+  }, [data]);
   const submit = (event) => {
     event.preventDefault();
+    setDisplay("Please wait...");
+    setData("");
 
     axios
       .get(
         `http://localhost:5000/fetchTweets?user=${name}&days=${days}&retweetCount=${retweetCount}`
       )
       .then((data) => {
-        data.data.forEach((i) => {
-          console.log(i);
-        });
-        let info = data.data[0];
-        setData(
-          <p>
-            `Tweet: ${info.tweet} <br />
-            <br />
-            Retweets: ${info.retweetCount} <br />
-            <br />
-            Success Chance: ${info.likelihood}
-            <br /> <br />
-            Data: ${info.date}`
-          </p>
-        );
+        setData(data.data);
       })
       .catch((e) => {
         console.log(e);
@@ -74,7 +86,7 @@ export default function Main() {
                   id="standard-required"
                   label="Twitter Handle"
                   onChange={getHandle}
-                />
+                />{" "}
                 <TextField
                   id="standard-number"
                   label="Days"
@@ -96,7 +108,6 @@ export default function Main() {
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
-                {load}
               </div>
             </form>
           </Col>
@@ -104,7 +115,15 @@ export default function Main() {
       </Container>
       <Container>
         <Row>
-          <Col md={{ span: 8, offset: 2 }}>{data}</Col>
+          <Col md={{ span: 8, offset: 2 }}>{display}</Col>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setDisplay(<div>{randomise()}</div>);
+            }}
+          >
+            Next
+          </Button>
         </Row>
       </Container>
     </div>
