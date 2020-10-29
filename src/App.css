@@ -1,7 +1,9 @@
 .App {
   text-align: center;
 }
-
+body {
+  background-color: #c3d6fa;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -14,8 +16,8 @@
 }
 
 .App-header {
-  /* background-color: #282c34;
-  min-height: 100vh; */
+  background-color: #c3d6fa;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
