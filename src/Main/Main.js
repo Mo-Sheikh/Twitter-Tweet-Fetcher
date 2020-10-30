@@ -7,8 +7,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
-import { makeStyles } from "@material-ui/core/styles";
-
 export default function Main() {
   const [name, setName] = useState();
   const [days, setDays] = useState();
@@ -31,7 +29,7 @@ export default function Main() {
     console.log(data);
     // let random = Math.ceil(Math.random() * (data.length - 1) + 0);
     data.sort((a, b) => {
-      return b.likelihood - a.likelihood;
+      return a.likelihood - b.likelihood;
     });
     let info = data.splice(data.length - 1, data.length - 1)[0];
 
@@ -41,7 +39,7 @@ export default function Main() {
           Tweet: {info.tweet} <br />
           <br />
           Retweets: {info.retweetCount} <br />
-          <br /> Success Chance: {Math.ceil(info.likelihood)}
+          <br /> Success Chance: {info.likelihood.toFixed(2)}
           <br /> <br />
           Date: {info.date}
           <br /> <br />
@@ -58,7 +56,6 @@ export default function Main() {
   const submit = (event) => {
     event.preventDefault();
     setDisplay("Please wait...");
-    setData("");
 
     axios
       .get(
@@ -80,8 +77,7 @@ export default function Main() {
             <h1> Tweet Fetcher</h1>
           </Col>
         </Row>
-      </Container>
-      <Container>
+
         <Row>
           <Col style={{ textAlign: "center" }}>
             <form noValidate autoComplete="off" onSubmit={submit}>
@@ -117,11 +113,18 @@ export default function Main() {
             </form>
           </Col>
         </Row>
-      </Container>
-      <Container>
+
+        <br></br>
+
         <Row>
-          <Col md={{ span: 8, offset: 2 }}>{display}</Col>
+          <Col
+            md={{ span: 6, offset: 6 }}
+            style={{ marginLeft: "12%", marginRight: "10%", marginTop: "5%" }}
+          >
+            {display}
+          </Col>
           <Button
+            style={{ float: "right" }}
             variant="primary"
             onClick={() => {
               setDisplay(<div>{randomise()}</div>);
