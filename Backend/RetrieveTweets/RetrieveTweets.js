@@ -37,6 +37,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
       );
     } catch (error) {
       console.log(error);
+      handleResponse(data, user, retweetCount, days, cb);
     }
   }
 
@@ -81,6 +82,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
       return obj;
     } catch (error) {
       console.log(error);
+      return "that geezer dont exist";
     }
   }
 
