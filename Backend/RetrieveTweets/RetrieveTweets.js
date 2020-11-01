@@ -14,7 +14,7 @@ const oauth = new OAuth.OAuth(
 
 function handler(user, retweetCount, days, max_id = null, cb) {
   let tweets = [];
-  console.log("twi", tweets);
+
   let max;
   fetchTweets(user, retweetCount, days, (max_id = null), cb);
   function fetchTweets(user, retweetCount, days, max_id = null, cb) {
@@ -37,7 +37,8 @@ function handler(user, retweetCount, days, max_id = null, cb) {
       );
     } catch (error) {
       console.log(error);
-      handleResponse(data, user, retweetCount, days, cb);
+      console.log("ERROR MATE");
+      return error;
     }
   }
 
@@ -63,6 +64,10 @@ function handler(user, retweetCount, days, max_id = null, cb) {
     try {
       let now = moment().toISOString();
       let obj = [];
+      let location = data[0].user.location || "";
+      let description = data[0].user.description || "";
+      let profileImage = data[0].user.profile_image_url || "";
+      let bannerImage = data[0].user.profile_banner_url || "";
 
       data.forEach((i) => {
         let isoDate = new Date(i.created_at);
@@ -75,14 +80,20 @@ function handler(user, retweetCount, days, max_id = null, cb) {
             user: user,
             tweet: i.full_text,
             likelihood: (i.retweet_count / i.user.followers_count) * 100,
+            location: location,
+            description: description,
+            profileImage: profileImage,
+            bannerImage: bannerImage,
             date: isoDate,
           });
         }
       });
+
       return obj;
     } catch (error) {
       console.log(error);
-      return "that geezer dont exist";
+      console.log("error in here collect tweets");
+      return false;
     }
   }
 
@@ -103,7 +114,8 @@ function handler(user, retweetCount, days, max_id = null, cb) {
         fetchTweets(user, retweetCount, days, max_id, cb);
       }
     } catch (error) {
-      console.log(error);
+      console.log("error from previos don");
+      return cb("error");
     }
   }
 }

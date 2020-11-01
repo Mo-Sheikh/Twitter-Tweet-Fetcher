@@ -24,11 +24,15 @@ app.get("/fetchTweets", async (req, res) => {
     console.log("received", user, days, retweetCount);
 
     handler.retrieveTweets(user, retweetCount, days, null, (u) => {
-      console.log("sending");
-      res.send(u);
+      if (u == "error") {
+        res.send("error");
+      } else {
+        res.send(u);
+      }
     });
   } catch (error) {
     console.log(error);
+    console.log("ERROR MATE in server");
     res.send("try again please");
   }
 });
