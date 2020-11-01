@@ -48,7 +48,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="h6"
-              style={{ fontSize: "0.8rem" }}
+              style={{ fontSize: "0.9rem" }}
             >
               {data.tweet}
             </Typography>
@@ -57,7 +57,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "0.8rem" }}
+              style={{ fontSize: "0.9rem" }}
             >
               Retweets: {data.retweetCount}
             </Typography>
@@ -66,7 +66,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "0.8rem" }}
+              style={{ fontSize: "0.9rem" }}
             >
               Success Chance: {data.likelihood}%
             </Typography>
@@ -75,7 +75,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "0.8rem" }}
+              style={{ fontSize: "0.9rem" }}
             >
               Date: {data.date}
             </Typography>
@@ -84,7 +84,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "0.8rem" }}
+              style={{ fontSize: "0.9rem" }}
             >
               User: @{data.user}
             </Typography>
