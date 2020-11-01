@@ -67,11 +67,17 @@ function handler(user, retweetCount, days, max_id = null, cb) {
     try {
       let now = moment().toISOString();
       let obj = [];
-      let location = data[0].user.location || "";
-      let description = data[0].user.description || "";
-      let profileImage = data[0].user.profile_image_url || "";
-      let bannerImage = data[0].user.profile_banner_url || "";
-
+      if (data.user) {
+        var location = data[0].user.location;
+        var description = data[0].user.description;
+        var profileImage = data[0].user.profile_image_url;
+        var bannerImage = data[0].user.profile_banner_url;
+      } else {
+        var location = "";
+        var description = "";
+        var profileImage = "";
+        var bannerImage = "";
+      }
       data.forEach((i) => {
         let isoDate = new Date(i.created_at);
         if (
