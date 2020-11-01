@@ -29,14 +29,17 @@ function handler(user, retweetCount, days, max_id = null, cb) {
           if (e) {
           }
           if (response) {
-            let data = JSON.parse(response);
-
-            handleResponse(data, user, retweetCount, days, cb);
+            try {
+              let data = JSON.parse(response);
+              handleResponse(data, user, retweetCount, days, cb);
+            } catch (error) {
+              cb("error");
+            }
           }
         }
       );
     } catch (error) {
-      console.log(error);
+      console.log("error is ", error);
       console.log("ERROR MATE");
       return error;
     }

@@ -78,10 +78,14 @@ export default function Main() {
       axios({
         method: "post",
         url: "http://localhost:5000/sendtweet",
-        data: chosen,
+        data: copy,
       })
         .then((i) => {
-          alert("sent");
+          if (i.data == "done") {
+            alert("sent");
+          } else {
+            alert("failed to send");
+          }
         })
         .catch((error) => {
           console.log(error);
