@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -9,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import Spinner from "../Spinner/Spinner.js";
 import Twitter from "../Images/twitter.svg";
 import MediaCard from "../Card/Card";
+import UserTable from "../TopUsers/TopUsers";
 
 export default function Main() {
   const [name, setName] = useState();
@@ -93,6 +95,9 @@ export default function Main() {
     }
   };
 
+  const copyUser = (name) => {
+    setName(name);
+  };
   useEffect(() => {
     if (data && data.length > 0) {
       getTweet();
@@ -154,10 +159,16 @@ export default function Main() {
               <div>
                 <TextField
                   required
-                  id="standard-required"
+                  id="standard-start-adornment"
                   label="Twitter Handle"
-                  onChange={getHandle}
-                />{" "}
+                  value={name}
+                  onInput={getHandle}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">@</InputAdornment>
+                    ),
+                  }}
+                />
                 <TextField
                   id="standard-number"
                   label="Days"
@@ -224,6 +235,9 @@ export default function Main() {
                 Tweet
               </Button>
             </div>
+          </Col>
+          <Col style={{ marginLeft: "17%", width: "17%" }}>
+            <UserTable select={copyUser} />
           </Col>
         </Row>
       </Container>
