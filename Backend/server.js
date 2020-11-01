@@ -25,6 +25,7 @@ app.get("/fetchTweets", async (req, res) => {
 
     handler.retrieveTweets(user, retweetCount, days, null, (u) => {
       if (u == "error") {
+        console.log(u);
         res.send("error");
       } else {
         res.send(u);

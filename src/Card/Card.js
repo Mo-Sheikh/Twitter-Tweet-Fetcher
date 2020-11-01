@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles({
   root: {
@@ -42,6 +43,7 @@ export default function MediaCard(props) {
 
             <Typography gutterBottom variant="h6" component="h3">
               Tweet:
+              <Avatar src={data.profileImage} style={{ float: "right" }} />
             </Typography>
             <br></br>
             <Typography
