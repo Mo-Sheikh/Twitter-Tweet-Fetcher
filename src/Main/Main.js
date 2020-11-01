@@ -187,7 +187,13 @@ export default function Main() {
                     shrink: true,
                   }}
                 />
-                <Button variant="primary" type="submit">
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  style={{ marginLeft: "1%" }}
+                >
                   Submit
                 </Button>
                 {chosen == "" ? <Spinner style={{ float: "right" }} /> : ""}
@@ -231,7 +237,12 @@ export default function Main() {
               </Form.Group>
 
               <p>{characterCount}</p>
-              <Button variant="contained" color="primary" onClick={tweet}>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                onClick={tweet}
+              >
                 Tweet
               </Button>
             </div>
