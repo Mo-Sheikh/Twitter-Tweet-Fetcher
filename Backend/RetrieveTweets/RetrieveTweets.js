@@ -31,8 +31,10 @@ function handler(user, retweetCount, days, max_id = null, cb) {
           if (response) {
             try {
               let data = JSON.parse(response);
+
               handleResponse(data, user, retweetCount, days, cb);
             } catch (error) {
+              console.log(error);
               cb("error");
             }
           }
@@ -67,7 +69,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
     try {
       let now = moment().toISOString();
       let obj = [];
-      if (data[0].user) {
+      if (data[0] && data[0].user) {
         var location = data[0].user.location;
         var description = data[0].user.description;
         var profileImage = data[0].user.profile_image_url;
