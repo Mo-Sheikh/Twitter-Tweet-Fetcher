@@ -91,10 +91,10 @@ export default function MediaCard(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary" onClick={select}>
+          <Button size="small" size="small" color="primary" onClick={select}>
             Select
           </Button>
-          <Button size="small" color="primary" onClick={next}>
+          <Button size="small" size="small" color="primary" onClick={next}>
             Next
           </Button>
         </CardActions>

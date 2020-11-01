@@ -25,3 +25,6 @@ yarn-error.log*
 # Credentials 
 .env
 /backend/.env
+
+#TopUsers
+/src/TopUsers/TopUsers.js
