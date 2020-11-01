@@ -79,7 +79,7 @@ export default function MediaCard(props) {
             >
               Date: {data.date}
             </Typography>
-
+            <br></br>
             <Typography
               variant="body2"
               color="textSecondary"
