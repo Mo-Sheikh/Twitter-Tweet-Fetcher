@@ -14,11 +14,11 @@ import UserTable from "../TopUsers/TopUsers";
 
 export default function Main() {
   const [name, setName] = useState();
-  const [days, setDays] = useState();
+  const [days, setDays] = useState(20);
   const [chosen, setChosen] = useState(null);
   const [display, setDisplay] = useState(null);
   const [tweetBox, SetTweetBox] = useState(null);
-  const [retweetCount, setRetweetCount] = useState();
+  const [retweetCount, setRetweetCount] = useState(10);
   const [data, setData] = useState([]);
   const [copy, setCopy] = useState([]);
   const [characterCount, setCharacterCount] = useState();
@@ -173,7 +173,8 @@ export default function Main() {
                   id="standard-number"
                   label="Days"
                   type="number"
-                  onChange={getDays}
+                  value={days}
+                  onInput={getDays}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -182,7 +183,8 @@ export default function Main() {
                   id="standard-number"
                   label="Retweet Count"
                   type="number"
-                  onChange={getRetweets}
+                  value={retweetCount}
+                  onInput={getRetweets}
                   InputLabelProps={{
                     shrink: true,
                   }}
