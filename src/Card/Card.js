@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 1009,
     marginLeft: "18%",
-    marginTop: "2%",
+    marginTop: "-5%",
     marginBottom: "2%",
   },
   media: {
@@ -40,7 +40,7 @@ export default function MediaCard(props) {
               />
             )}
 
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h6" component="h3">
               Tweet:
             </Typography>
             <br></br>
@@ -48,7 +48,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="h6"
-              style={{ fontSize: "1rem" }}
+              style={{ fontSize: "0.8rem" }}
             >
               {data.tweet}
             </Typography>
@@ -57,7 +57,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "1rem" }}
+              style={{ fontSize: "0.8rem" }}
             >
               Retweets: {data.retweetCount}
             </Typography>
@@ -66,7 +66,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "1rem" }}
+              style={{ fontSize: "0.8rem" }}
             >
               Success Chance: {data.likelihood}%
             </Typography>
@@ -75,7 +75,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "1rem" }}
+              style={{ fontSize: "0.8rem" }}
             >
               Date: {data.date}
             </Typography>
@@ -84,7 +84,7 @@ export default function MediaCard(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              style={{ fontSize: "1rem" }}
+              style={{ fontSize: "0.8rem" }}
             >
               User: @{data.user}
             </Typography>

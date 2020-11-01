@@ -40,9 +40,14 @@ app.get("/fetchTweets", async (req, res) => {
 app.post("/sendtweet", async (req, res) => {
   try {
     let tweet = req.body;
-    sendTweet.sendTweet(tweet, () => {
-      console.log("sent");
-      res.sendStatus(200);
+    console.log("tweet is ", tweet);
+    sendTweet.sendTweet(tweet, (i) => {
+      console.log("nigga", i);
+      if (i == "done") {
+        res.send("done");
+      } else {
+        res.send("error");
+      }
     });
   } catch (error) {
     console.log(error);

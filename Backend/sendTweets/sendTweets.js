@@ -22,10 +22,11 @@ function sendTweet(tweet, cb) {
       }
       if (data) {
         console.log("tweet sent");
-        cb();
+        cb("done");
       }
       if (e) {
         console.log(e);
+        cb("error");
       }
     }
   );
