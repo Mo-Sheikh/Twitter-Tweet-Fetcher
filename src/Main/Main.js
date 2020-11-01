@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
-
 import axios from "axios";
-import Button from "react-bootstrap/Button";
+import Button from "@material-ui/core/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -14,11 +13,13 @@ import MediaCard from "../Card/Card";
 export default function Main() {
   const [name, setName] = useState();
   const [days, setDays] = useState();
-  const [chosen, setChosen] = useState("");
+  const [chosen, setChosen] = useState(null);
   const [display, setDisplay] = useState(null);
   const [tweetBox, SetTweetBox] = useState(null);
   const [retweetCount, setRetweetCount] = useState();
   const [data, setData] = useState([]);
+  const [copy, setCopy] = useState([]);
+  const [characterCount, setCharacterCount] = useState();
 
   const getHandle = (event) => {
     setName(event.target.value);
@@ -39,6 +40,7 @@ export default function Main() {
       let info = data.splice(data.length - 1, data.length - 1)[0];
       console.log("chosen", info);
       setChosen(info);
+
       if (info) {
         return (
           <p>
@@ -59,22 +61,32 @@ export default function Main() {
   };
 
   const select = () => {
-    alert("hello");
+    setCopy(chosen.tweet);
+    setCharacterCount(chosen.tweet.length);
   };
 
+  const validateInput = (event) => {
+    event.preventDefault();
+    setCopy(event.target.value);
+    setCharacterCount(`Character Count: ${event.target.value.length}`);
+  };
   const tweet = () => {
     console.log("sending down ", chosen);
-    axios({
-      method: "post",
-      url: "http://localhost:5000/sendtweet",
-      data: chosen,
-    })
-      .then((i) => {
-        alert("sent");
+    if (copy.length > 279) {
+      alert("Charater limit exceeded");
+    } else {
+      axios({
+        method: "post",
+        url: "http://localhost:5000/sendtweet",
+        data: chosen,
       })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((i) => {
+          alert("sent");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -92,6 +104,7 @@ export default function Main() {
   const submit = (event) => {
     event.preventDefault();
     setDisplay("");
+    setChosen("");
     axios
       .get(
         `http://localhost:5000/fetchTweets?user=${name}&days=${days}&retweetCount=${retweetCount}`
@@ -101,6 +114,7 @@ export default function Main() {
           console.log(data.data);
           setData(data.data);
         } else {
+          setChosen(null);
           setDisplay("Something went wrong - try again");
         }
       })
@@ -161,8 +175,8 @@ export default function Main() {
                 <Button variant="primary" type="submit">
                   Submit
                 </Button>
+                {chosen == "" ? <Spinner style={{ float: "right" }} /> : ""}
               </div>
-              {chosen == "" ? <Spinner style={{ float: "right" }} /> : ""}
             </form>
           </Col>
         </Row>
@@ -182,25 +196,27 @@ export default function Main() {
       </Container>
       <Container>
         <Row>
+          <Row></Row>
           <Col>{tweetBox}</Col>
         </Row>
       </Container>
       <Container>
         <Row>
-          <Col>
+          <Col style={{ textAlign: "center" }}>
             {" "}
             <div>
               <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Control
                   as="textarea"
-                  rows={3}
-                  onInput={(e) => {
-                    e.preventDefault();
-                  }}
-                  style={{ width: "1582px", height: "205px" }}
+                  rows={10}
+                  value={copy}
+                  onInput={validateInput}
+                  style={{ width: "1182px", height: "205px" }}
                 />
               </Form.Group>
-              <Button onClick={tweet} style={{ float: "right" }}>
+
+              <p>{characterCount}</p>
+              <Button variant="contained" color="primary" onClick={tweet}>
                 Tweet
               </Button>
             </div>

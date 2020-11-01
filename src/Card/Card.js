@@ -12,6 +12,8 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 1009,
     marginLeft: "18%",
+    marginTop: "2%",
+    marginBottom: "2%",
   },
   media: {
     height: 140,
@@ -26,13 +28,18 @@ export default function MediaCard(props) {
       <Card className={classes.root}>
         <CardActionArea>
           <CardContent>
-            <CardMedia
-              component="img"
-              alt="Contemplative Reptile"
-              height="140"
-              src={data.bannerImage}
-              title="Contemplative Reptile"
-            />
+            {data.bannerImage == "" ? (
+              ""
+            ) : (
+              <CardMedia
+                component="img"
+                alt="Contemplative Reptile"
+                height="140"
+                src={data.bannerImage}
+                title="Contemplative Reptile"
+              />
+            )}
+
             <Typography gutterBottom variant="h5" component="h2">
               Tweet:
             </Typography>
