@@ -27,13 +27,17 @@ function handler(user, retweetCount, days, max_id = null, cb) {
         process.env.TokenSecret,
         (e, response) => {
           if (e) {
+            console.log("what is e");
+            console.log(e);
           }
           if (response) {
             try {
+              console.log("we have response");
               let data = JSON.parse(response);
 
               handleResponse(data, user, retweetCount, days, cb);
             } catch (error) {
+              console.log("here g");
               console.log(error);
               cb("error");
             }
@@ -84,7 +88,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
         let isoDate = new Date(i.created_at);
         if (
           i.retweet_count > retweetCount &&
-          moment(now).diff(moment(isoDate), "days") > days
+          moment(now).diff(moment(isoDate), "days") < days
         ) {
           obj.push({
             retweetCount: i.retweet_count,
@@ -97,6 +101,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
             bannerImage: bannerImage,
             date: isoDate,
           });
+          console.log(obj);
         }
       });
 
@@ -116,12 +121,11 @@ function handler(user, retweetCount, days, max_id = null, cb) {
 
       let max_id = getMaxId(data);
 
-      if (!max_id || max_id === max) {
+      if (true) {
         cb(tweets);
         return;
       } else {
         max = max_id;
-
         fetchTweets(user, retweetCount, days, max_id, cb);
       }
     } catch (error) {

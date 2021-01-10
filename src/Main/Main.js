@@ -36,10 +36,12 @@ export default function Main() {
   const getTweet = () => {
     try {
       console.log(data);
+      console.log("hello mate");
       data.sort((a, b) => {
         return a.likelihood - b.likelihood;
       });
-      let info = data.splice(data.length - 1, data.length - 1)[0];
+      console.log("data is ", data);
+      let info = data[0];
       console.log("chosen", info);
       setChosen(info);
 

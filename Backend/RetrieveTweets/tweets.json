@@ -1,0 +1,92 @@
+{
+  "python": [
+    {
+      "retweetCount": 91,
+      "user": "thepsf",
+      "tweet": "Python 3.8.7 is now available. It is the seventh maintenance release of Python 3.8. Get it here: https://t.co/pNbaybJoqu Thank you to all of the many volunteers who help make Python Development and these releases possible!",
+      "location": "Everywhere Python is!",
+      "description": "The Python Software Foundation. For help with Python code, see comp.lang.python.",
+      "profileImage": "http://pbs.twimg.com/profile_images/439154912719413248/pUBY5pVj_normal.png",
+      "bannerImage": "undefined",
+      "date": "2021-01-05T08:26:00.000Z"
+    }
+  ],
+  "javscript": [
+    {
+      "retweetCount": 45,
+      "user": "javascriptdaily",
+      "tweet": "The 4 'Creational' Design Patterns in Node.js You Should Know: https://t.co/0ky4EAcLVf",
+      "likelihood": 0.010319278476048953,
+      "location": "",
+      "description": "JavaScript, Node, TypeScript, and JS ecosystem related links, sass, and news for you, daily 💛 💛 💛",
+      "profileImage": "http://pbs.twimg.com/profile_images/988505844915556354/lgUSY3mZ_normal.jpg",
+      "bannerImage": "https://pbs.twimg.com/profile_banners/459275531/1458214369",
+      "date": "2021-01-07T22:33:01.000Z"
+    }
+  ],
+  "golang": [
+    {
+      "retweetCount": 13,
+      "user": "golangweekly",
+      "tweet": "Debugging Code Generation in Go: https://t.co/AA7mNuwgtm #video",
+      "likelihood": 0.023988780631827574,
+      "location": "",
+      "description": "Daily Go / #golang news and links. Logo by Renée French. Published by the @Cooperpress team",
+      "profileImage": "http://pbs.twimg.com/profile_images/554798224154701824/mWd3laxO_normal.png",
+      "bannerImage": "https://pbs.twimg.com/profile_banners/1112334438/1486743278",
+      "date": "2021-01-08T17:29:01.000Z"
+    }
+  ],
+  "java": [
+    {
+      "retweetCount": 10,
+      "user": "oraclejavamag",
+      "tweet": "Go behind the scenes of the newest features being considered for #Java16 and beyond. #Java @delabassee https://t.co/Ly3OxcMYje https://t.co/up5Y6bkwDr",
+      "likelihood": 0.009823858222078138,
+      "location": "Redwood Shores, CA",
+      "description": "Java Magazine is the official Java publication that provides profiles of innovative Java applications, Java technical how-to’s, Java community news and more.",
+      "profileImage": "http://pbs.twimg.com/profile_images/1187856593334849536/F6Dndc0b_normal.jpg",
+      "bannerImage": "https://pbs.twimg.com/profile_banners/831537756/1607577380",
+      "date": "2021-01-04T01:30:00.000Z"
+    }
+  ],
+  "c++": [
+    {
+      "retweetCount": 4,
+      "user": "isocpp",
+      "tweet": "Interactive C++ for Data Science--Vassil Vassilev, David Lange, Simeon Ehrig, Sylvain Corlay https://t.co/JxORfvKIW2 #cpp",
+      "likelihood": 0.012138131941494204,
+      "location": "",
+      "description": "Standard C++ Foundation, and ISO C++ standards committee - ISO/IEC JTC1/SC22/WG21",
+      "profileImage": "http://pbs.twimg.com/profile_images/853644970074308608/OFxlsIOY_normal.jpg",
+      "bannerImage": "undefined",
+      "date": "2021-01-04T19:15:02.000Z"
+    }
+  ],
+  "ruby": [
+    {
+      "retweetCount": 50,
+      "user": "rails",
+      "tweet": "Rails 6.1.1 has been released! https://t.co/RY0SxakbW4",
+      "likelihood": 0.0364492589865648,
+      "location": "",
+      "description": "Imagine what you could build if you learned Ruby on Rails…",
+      "profileImage": "http://pbs.twimg.com/profile_images/691206086955790336/CDMbA57p_normal.png",
+      "bannerImage": "https://pbs.twimg.com/profile_banners/3116191/1524784158",
+      "date": "2021-01-08T20:38:51.000Z"
+    }
+  ],
+  "php": [
+    {
+      "retweetCount": 171,
+      "user": "official_php",
+      "tweet": "📄 The PHP documentation is now finally on Git! https://t.co/0k0fa1wraE\n 🔣 The translations for Deutsch, Français, 北京語, 日本語, Portugues do Brasil, русский, Italiano, Română, українська мова, Język polski, en Español are also on GIT → https://t.co/2tQymP11nF https://t.co/lHlYOW4F3e",
+      "likelihood": 0.20945871458494103,
+      "location": "",
+      "description": "The official Twitter account for http://t.co/S2GoDCz77Z.",
+      "profileImage": "http://pbs.twimg.com/profile_images/815698345716912128/hwUcGZ41_normal.jpg",
+      "bannerImage": "https://pbs.twimg.com/profile_banners/1537028058/1398374835",
+      "date": "2020-12-31T17:41:30.000Z"
+    }
+  ]
+}
