@@ -249,7 +249,7 @@ export default function Main() {
               </Button>
             </div>
           </Col>
-          <Col style={{ marginLeft: "17%", width: "17%" }}>
+          <Col style={{ marginLeft: "5%", width: "30%" }}>
             <UserTable select={copyUser} />
           </Col>
         </Row>
