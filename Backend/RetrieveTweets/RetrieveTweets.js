@@ -30,6 +30,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
           }
           if (response) {
             try {
+              console.log(response);
               let data = JSON.parse(response);
 
               handleResponse(data, user, retweetCount, days, cb);

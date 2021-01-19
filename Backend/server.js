@@ -6,6 +6,7 @@ const app = express();
 const fs = require("fs");
 const handler = require("./RetrieveTweets/RetrieveTweets");
 const sendTweet = require("./sendTweets/sendTweets");
+const users = require("./Users/Users");
 require("dotenv").config();
 
 app.use(cors());
@@ -55,4 +56,21 @@ app.post("/sendtweet", async (req, res) => {
   }
 });
 
+app.get("/getusers", async (req, res) => {
+  console.log("HELLOO!");
+  try {
+    users.users("codewithmo", (listOfUsers) => {
+      if (listOfUsers === "error") {
+        res.send("error");
+      } else {
+        console.log(listOfUsers);
+        res.send(listOfUsers);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    console.log("ERROR getting users");
+    res.send("try again please");
+  }
+});
 module.exports.app = app;
