@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
+import Button from "@material-ui/core/Button";
+
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableFooter from "@material-ui/core/TableFooter";
@@ -134,10 +136,11 @@ const useStyles2 = makeStyles({
   },
 });
 
-export default function CustomPaginationActionsTable() {
+export default function CustomPaginationActionsTable(props) {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const { select } = props;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -165,6 +168,18 @@ export default function CustomPaginationActionsTable() {
               </TableCell>
               <TableCell component="th" scope="row">
                 0
+              </TableCell>
+              <TableCell align="right">
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    select(row.name);
+                  }}
+                >
+                  Select{" "}
+                </Button>
               </TableCell>
             </TableRow>
           ))}
