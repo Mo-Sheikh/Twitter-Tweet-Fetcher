@@ -138,7 +138,6 @@ export default function CustomPaginationActionsTable() {
   const classes = useStyles2();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const { select } = props;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -166,18 +165,6 @@ export default function CustomPaginationActionsTable() {
               </TableCell>
               <TableCell component="th" scope="row">
                 0
-              </TableCell>
-              <TableCell align="right">
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    select(row.name);
-                  }}
-                >
-                  Select{" "}
-                </Button>
               </TableCell>
             </TableRow>
           ))}
