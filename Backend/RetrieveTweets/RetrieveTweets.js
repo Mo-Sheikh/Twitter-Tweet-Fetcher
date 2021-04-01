@@ -74,6 +74,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
         var location = data[0].user.location;
         var description = data[0].user.description;
         var profileImage = data[0].user.profile_image_url;
+        console.log("PROFILE", data[0].user);
         var bannerImage = data[0].user.profile_banner_url;
       } else {
         var location = "";
@@ -82,6 +83,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
         var bannerImage = "";
       }
       data.forEach((i) => {
+        console.log(i);
         let isoDate = new Date(i.created_at);
         if (
           i.retweet_count > retweetCount &&
@@ -89,6 +91,7 @@ function handler(user, retweetCount, days, max_id = null, cb) {
         ) {
           obj.push({
             retweetCount: i.retweet_count,
+            likes: i.favorite_count,
             user: user,
             tweet: i.full_text,
             likelihood: (i.retweet_count / i.user.followers_count) * 100,

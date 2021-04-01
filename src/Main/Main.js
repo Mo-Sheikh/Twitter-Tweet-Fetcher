@@ -37,7 +37,7 @@ export default function Main() {
     try {
       console.log(data);
       data.sort((a, b) => {
-        return a.likelihood - b.likelihood;
+        return a.likes - b.likes;
       });
       let info = data.splice(data.length - 1, data.length - 1)[0];
       console.log("chosen", info);

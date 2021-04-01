@@ -72,6 +72,14 @@ export default function MediaCard(props) {
             >
               Success Chance: {data.likelihood}%
             </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              style={{ fontSize: "0.9rem" }}
+            >
+              Likes {data.likes}
+            </Typography>
             <br></br>
             <Typography
               variant="body2"

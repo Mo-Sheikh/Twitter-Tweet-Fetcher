@@ -22,6 +22,7 @@ app.get("/fetchTweets", async (req, res) => {
     const user = req.query.user;
     const days = req.query.days;
     const retweetCount = req.query.retweetCount;
+
     console.log("received", user, days, retweetCount);
 
     handler.retrieveTweets(user, retweetCount, days, null, (u) => {
